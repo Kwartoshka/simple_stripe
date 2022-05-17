@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Item {{name}} </title>
+</head>
+<body>
+<h1>Name: {{name}}</h1>
+<p>Price: {{price}}</p>
+<p>Description: {{description}}</p>
+
+
+<script>
+    function clickHandler() {
+      alert("something");
+    }
+</script>
+
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<button id="buy-btn">Buy</button>
+
+    <script>
+
+    var stripe = Stripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+    var url = '/buy/' + {{id}}
+    console.log(url)
+    var handleResult = function (result) {
+        if (result.error) {
+          var displayError = document.getElementById("error-message");
+          displayError.textContent = result.error.message;
+        }
+      };
+
+    var createCheckoutSession = function() {
+        return fetch(url, {
+          method: "GET"}).then(function(result) {
+          return result.json();
+        });
+      };
+
+    document
+        .getElementById("buy-btn")
+        .addEventListener("click", function (evt) {
+          createCheckoutSession().then(function(data) {
+            // Call Stripe.js method to redirect to the new Checkout page
+            stripe
+              .redirectToCheckout(
+                {
+                    sessionId: data.sessionId
+                }
+              )
+              .then(handleResult);
+          });
+        });
+    </script>
+
+</body>
+</html>

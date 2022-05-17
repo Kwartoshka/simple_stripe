@@ -15,10 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import TemplateView
+
 from backend import views
 
 urlpatterns = [
     path('buy/<id>', views.buy),
     path('item/<id>', views.item),
     path('admin/', admin.site.urls),
+    path('success/', TemplateView.as_view(template_name='success.html'), name='success'),
+    path('fail/', TemplateView.as_view(template_name='fail.html'), name='fail')
 ]

@@ -1,1 +1,1 @@
-web: gunicorn referal.wsgi --log-file -
+web: gunicorn simple_stripe.wsgi --log-file -

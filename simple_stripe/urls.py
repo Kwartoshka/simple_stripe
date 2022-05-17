@@ -20,6 +20,7 @@ from django.views.generic import TemplateView
 from backend import views
 
 urlpatterns = [
+    path('/', TemplateView.as_view(template_name='index.html'), name='home'),
     path('buy/<id>', views.buy),
     path('item/<id>', views.item),
     path('admin/', admin.site.urls),
